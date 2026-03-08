@@ -8,7 +8,7 @@ import WeeklyCoaching from "@/components/dashboard/WeeklyCoaching";
 import MonthlyReport from "@/components/dashboard/MonthlyReport";
 import RecommendationCard from "@/components/dashboard/RecommendationCard";
 import NetWorthCard from "@/components/dashboard/NetWorthCard";
-import SavingsBuckets from "@/components/dashboard/SavingsBuckets";
+
 import AchievementsBadges from "@/components/dashboard/AchievementsBadges";
 import LevelProgressionMap from "@/components/dashboard/LevelProgressionMap";
 import { useProfile } from "@/hooks/useProfile";
