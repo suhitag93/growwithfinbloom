@@ -27,7 +27,7 @@ const Dashboard = () => {
     <div className="min-h-screen pt-20 pb-12 px-4">
       <div className="container mx-auto max-w-6xl">
         {/* User Identity + Level */}
-        <UserLevelHeader firstName={firstName} profile={profile} />
+        <UserLevelHeader firstName={firstName} />
 
         {/* Financial Health + Spending */}
         <div className="grid lg:grid-cols-2 gap-6 mb-6">
