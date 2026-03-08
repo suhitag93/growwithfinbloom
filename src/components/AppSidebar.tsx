@@ -89,7 +89,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup defaultOpen>
+        <SidebarGroup>
           <SidebarGroupLabel>Insights</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
