@@ -7,6 +7,7 @@ import { Sparkles } from "lucide-react";
 interface Props {
   level: number;
   data: OnboardingData;
+  onComplete?: () => void;
 }
 
 const levels = [
