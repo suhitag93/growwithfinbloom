@@ -1,6 +1,7 @@
-import { Sprout, Shield, Eye, Lock } from "lucide-react";
+import { Shield, Eye, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import FinBloomIcon from "@/components/FinBloomIcon";
 
 interface Props {
   onNext: () => void;
