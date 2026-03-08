@@ -29,11 +29,11 @@ const UserLevelHeader = ({ firstName, profile }: Props) => {
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-4">
         <div>
           <h1 className="font-display text-3xl md:text-4xl font-semibold text-foreground mb-1">
-            Welcome back, Sarah 🌸
+            Welcome back, {firstName} 🌸
           </h1>
           <div className="flex items-center gap-3 text-muted-foreground text-sm">
             <span className="inline-flex items-center gap-1 font-medium text-primary">
-              🌿 Sprout
+              {level.emoji} {level.label}
             </span>
             <span className="text-border">•</span>
             <span className="inline-flex items-center gap-1">
@@ -41,7 +41,7 @@ const UserLevelHeader = ({ firstName, profile }: Props) => {
               12-day streak
             </span>
             <span className="text-border">•</span>
-            <span>Personality: Planner 📋</span>
+            <span>Personality: {profile?.employment_type === "freelance" ? "Hustler 🚀" : "Planner 📋"}</span>
           </div>
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium">
