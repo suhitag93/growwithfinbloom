@@ -48,6 +48,9 @@ const Navbar = () => {
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/dashboard">Dashboard</Link>
               </Button>
+              <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+                <Link to="/settings"><Settings className="w-4 h-4" /></Link>
+              </Button>
               <Button variant="ghost" size="sm" onClick={signOut}>
                 <LogOut className="w-4 h-4 mr-1" />
                 Sign out
