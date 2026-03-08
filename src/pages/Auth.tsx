@@ -229,6 +229,26 @@ const Auth = () => {
             {isLogin ? "Sign up" : "Sign in"}
           </button>
         </p>
+
+        {/* Demo Login */}
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-border" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">or try a demo</span>
+          </div>
+        </div>
+        <Button
+          variant="secondary"
+          size="lg"
+          className="w-full"
+          onClick={handleDemoLogin}
+          disabled={loading}
+        >
+          <Sprout className="w-5 h-5 mr-2" />
+          {loading ? "Signing in…" : "Try Demo Account (Sprout 🌿)"}
+        </Button>
       </motion.div>
     </div>
   );
