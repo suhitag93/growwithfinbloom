@@ -299,15 +299,15 @@ const Auth = () => {
           </div>
         </div>
         <Button
-          variant="secondary"
-          size="lg"
-          className="w-full"
-          onClick={handleDemoLogin}
-          disabled={loading}
-        >
-          <Sprout className="w-5 h-5 mr-2" />
-          {loading ? "Signing in…" : "Try Demo Account (Sprout 🌿)"}
-        </Button>
+           variant="secondary"
+           size="lg"
+           className="w-full"
+           onClick={handleDemoLogin}
+           disabled={loading}
+         >
+           <FinBloomIcon size="sm" className="mr-2" />
+           {loading ? "Signing in…" : "Try Demo Account (Sprout 🌿)"}
+         </Button>
       </motion.div>
     </div>
   );
