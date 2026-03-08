@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import UserLevelHeader from "@/components/dashboard/UserLevelHeader";
 import FinancialHealthSnapshot from "@/components/dashboard/FinancialHealthSnapshot";
 import SpendingOverview from "@/components/dashboard/SpendingOverview";
@@ -10,6 +9,8 @@ import MonthlyReport from "@/components/dashboard/MonthlyReport";
 import RecommendationCard from "@/components/dashboard/RecommendationCard";
 import NetWorthCard from "@/components/dashboard/NetWorthCard";
 import SavingsBuckets from "@/components/dashboard/SavingsBuckets";
+import AchievementsBadges from "@/components/dashboard/AchievementsBadges";
+import LevelProgressionMap from "@/components/dashboard/LevelProgressionMap";
 import { useProfile } from "@/hooks/useProfile";
 
 const Dashboard = () => {
@@ -27,7 +28,7 @@ const Dashboard = () => {
     <div className="min-h-screen pt-20 pb-12 px-4">
       <div className="container mx-auto max-w-6xl">
         {/* User Identity + Level */}
-        <UserLevelHeader firstName={firstName} profile={profile} />
+        <UserLevelHeader firstName={firstName} />
 
         {/* Financial Health + Spending */}
         <div className="grid lg:grid-cols-2 gap-6 mb-6">
@@ -39,6 +40,12 @@ const Dashboard = () => {
         <div className="grid lg:grid-cols-2 gap-6 mb-6">
           <GoalTracker goals={profile?.goals} />
           <GamifiedMissions />
+        </div>
+
+        {/* Level Progression + Achievements */}
+        <div className="grid lg:grid-cols-2 gap-6 mb-6">
+          <LevelProgressionMap />
+          <AchievementsBadges />
         </div>
 
         {/* Net Worth + Monthly Report */}
