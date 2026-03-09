@@ -23,16 +23,10 @@ const navSections = [
   {
     label: "",
     items: [
-      { title: "Overview", url: "/dashboard", icon: LayoutDashboard },
-    ],
-  },
-  {
-    label: "Scorecards",
-    items: [
-      { title: "Financial Health", url: "/dashboard#financial-health", icon: Heart, emoji: "💚" },
-      { title: "Active Missions", url: "/dashboard#active-missions", icon: Zap, emoji: "⚡" },
-      { title: "Growth & Achievements", url: "/dashboard#growth-achievements", icon: Sprout, emoji: "🌱" },
-      { title: "Weekly Guide", url: "/dashboard#weekly-guide", icon: BookOpen, emoji: "📖" },
+      { title: "Overview", url: "/dashboard#overview", icon: LayoutDashboard },
+      { title: "Spending", url: "/dashboard#spending", icon: Zap },
+      { title: "Growth Garden", url: "/dashboard#growth", icon: Sprout },
+      { title: "Weekly Guide", url: "/dashboard#guide", icon: BookOpen },
     ],
   },
 ];
