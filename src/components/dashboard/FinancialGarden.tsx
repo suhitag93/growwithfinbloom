@@ -538,8 +538,6 @@ const DebtClearing = ({ debtLevel, onTap, isDisappearing }: { debtLevel: number;
     { x: 232, y: 280 },
   ];
 
-  if (weedCount === 0) return null;
-
   return (
     <g onClick={onTap} className="cursor-pointer" role="button" aria-label="Debt health details">
       {/* Darker soil patch when debt is high */}
