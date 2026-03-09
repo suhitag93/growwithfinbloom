@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Heart, Zap, Sprout, BookOpen } from "lucide-react";
 
 interface AccordionSection {
