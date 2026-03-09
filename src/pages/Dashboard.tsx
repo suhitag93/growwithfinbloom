@@ -118,6 +118,11 @@ const Dashboard = () => {
         {/* Welcome header */}
         <UserLevelHeader firstName={firstName} />
 
+        {/* Financial Garden — prominent on both mobile & desktop */}
+        <div className="mb-4 md:mb-6">
+          <FinancialGarden />
+        </div>
+
         {/* ===== MOBILE: Accordion layout ===== */}
         <MobileDashboardAccordion sections={mobileAccordionSections} openIds={openAccordionIds} onToggle={toggleAccordion} />
 
