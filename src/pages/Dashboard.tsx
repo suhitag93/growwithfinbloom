@@ -14,6 +14,7 @@ import NetWorthCard from "@/components/dashboard/NetWorthCard";
 import AchievementsBadges from "@/components/dashboard/AchievementsBadges";
 import LevelProgressionMap from "@/components/dashboard/LevelProgressionMap";
 import SavingsBuckets from "@/components/dashboard/SavingsBuckets";
+import FinancialGarden from "@/components/dashboard/FinancialGarden";
 import { MobileDashboardAccordion } from "@/components/dashboard/MobileDashboardAccordion";
 import type { AccordionSection } from "@/components/dashboard/MobileDashboardAccordion";
 import { useProfile } from "@/hooks/useProfile";
@@ -116,6 +117,11 @@ const Dashboard = () => {
       <div className="container mx-auto max-w-6xl">
         {/* Welcome header */}
         <UserLevelHeader firstName={firstName} />
+
+        {/* Financial Garden — prominent on both mobile & desktop */}
+        <div className="mb-4 md:mb-6">
+          <FinancialGarden />
+        </div>
 
         {/* ===== MOBILE: Accordion layout ===== */}
         <MobileDashboardAccordion sections={mobileAccordionSections} openIds={openAccordionIds} onToggle={toggleAccordion} />
