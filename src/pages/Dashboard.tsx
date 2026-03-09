@@ -14,6 +14,7 @@ import NetWorthCard from "@/components/dashboard/NetWorthCard";
 import AchievementsBadges from "@/components/dashboard/AchievementsBadges";
 import LevelProgressionMap from "@/components/dashboard/LevelProgressionMap";
 import SavingsBuckets from "@/components/dashboard/SavingsBuckets";
+import FinancialGarden from "@/components/dashboard/FinancialGarden";
 import { MobileDashboardAccordion } from "@/components/dashboard/MobileDashboardAccordion";
 import type { AccordionSection } from "@/components/dashboard/MobileDashboardAccordion";
 import { useProfile } from "@/hooks/useProfile";
