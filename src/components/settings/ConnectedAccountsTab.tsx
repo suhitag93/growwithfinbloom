@@ -3,13 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, RefreshCw, Trash2, Building2, TrendingUp, CreditCard, Landmark, PiggyBank, Wallet, Loader2 } from "lucide-react";
+import { Plus, RefreshCw, Trash2, Building2, TrendingUp, CreditCard, Landmark, PiggyBank, Wallet, Loader2, Unlink } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAccounts } from "@/hooks/useAccounts";
 import { usePlaid } from "@/hooks/usePlaid";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const ACCOUNT_TYPE_ICONS: Record<string, React.ReactNode> = {
