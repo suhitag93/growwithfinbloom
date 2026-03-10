@@ -201,25 +201,36 @@ const Auth = () => {
           </button>
         </p>
 
-        {/* Demo Login */}
+        {/* Demo Profiles */}
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">or try a demo</span>
+            <span className="bg-background px-2 text-muted-foreground">or explore a demo</span>
           </div>
         </div>
-        <Button
-           variant="secondary"
-           size="lg"
-           className="w-full"
-           onClick={handleDemoLogin}
-           disabled={loading}
-         >
-           <FinBloomIcon size="sm" className="mr-2" />
-           {loading ? "Signing in…" : "Try Demo Account (Sprout 🌿)"}
-         </Button>
+        <div className="space-y-2">
+          {DEMO_PROFILES.map((profile) => (
+            <Button
+              key={profile.email}
+              variant="secondary"
+              size="lg"
+              className="w-full justify-start"
+              onClick={() => handleDemoLogin(profile)}
+              disabled={!!demoLoading}
+            >
+              <span className="text-lg mr-2">{profile.emoji}</span>
+              <div className="text-left flex-1">
+                <div className="font-medium text-sm">{profile.label}</div>
+                <div className="text-xs text-muted-foreground font-normal">{profile.description}</div>
+              </div>
+              {demoLoading === profile.email && (
+                <span className="text-xs text-muted-foreground animate-pulse">Signing in…</span>
+              )}
+            </Button>
+          ))}
+        </div>
       </motion.div>
     </div>
   );
