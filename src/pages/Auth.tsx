@@ -73,125 +73,14 @@ const Auth = () => {
     }
   };
 
-  const seedDemoData = async (userId: string) => {
-    // Seed profile
-    await supabase.from("profiles").upsert({
-      user_id: userId,
-      full_name: "Alex Bloom",
-      age_group: "25-34",
-      income_range: "$40k-$60k",
-      employment_type: "full_time",
-      location_type: "urban",
-      household: "single",
-      financial_confidence: "somewhat",
-      financial_accounts: ["checking", "savings"],
-      connected_bank: true,
-      goals: ["emergency_fund", "pay_debt", "save_for_vacation"],
-      onboarding_completed: true,
-    }, { onConflict: "user_id" });
-
-    // Seed XP ledger entries to reach Sprout level (~700 XP)
-    const { data: existingXP } = await supabase
-      .from("xp_ledger")
-      .select("id")
-      .eq("user_id", userId)
-      .limit(1);
-
-    if (!existingXP || existingXP.length === 0) {
-      await supabase.from("xp_ledger").insert([
-        { user_id: userId, xp_amount: 100, reason: "Completed onboarding", source_type: "onboarding" },
-        { user_id: userId, xp_amount: 200, reason: "Connected bank accounts", source_type: "banking" },
-        { user_id: userId, xp_amount: 50, reason: "Set financial goals", source_type: "onboarding" },
-        { user_id: userId, xp_amount: 75, reason: "Completed weekly mission", source_type: "mission" },
-        { user_id: userId, xp_amount: 40, reason: "Saved $100", source_type: "saving" },
-        { user_id: userId, xp_amount: 20, reason: "3-day login streak", source_type: "engagement" },
-        { user_id: userId, xp_amount: 50, reason: "First $500 saved", source_type: "achievement" },
-        { user_id: userId, xp_amount: 30, reason: "7-day login streak", source_type: "engagement" },
-        { user_id: userId, xp_amount: 75, reason: "Completed 10 missions", source_type: "achievement" },
-        { user_id: userId, xp_amount: 100, reason: "First credit card paid off", source_type: "achievement" },
-      ]);
-
-      // Seed some earned achievements
-      const { data: achievements } = await supabase
-        .from("achievements")
-        .select("id, name")
-        .in("name", ["First Drop", "Chain Breaker", "Week Warrior", "Mission Maven"]);
-
-      if (achievements && achievements.length > 0) {
-        await supabase.from("user_achievements").insert(
-          achievements.map((a: any) => ({
-            user_id: userId,
-            achievement_id: a.id,
-          }))
-        );
-      }
-
-      // Seed some user mission progress
-      const { data: missionsList } = await supabase.from("missions").select("id, title").limit(5);
-      if (missionsList && missionsList.length > 0) {
-        await supabase.from("user_missions").insert(
-          missionsList.map((m: any, i: number) => ({
-            user_id: userId,
-            mission_id: m.id,
-            progress_value: i === 0 ? 100 : Math.floor(Math.random() * 80),
-            completed: i === 0,
-            completed_at: i === 0 ? new Date().toISOString() : null,
-          }))
-        );
-      }
-
-      // Seed mock connected accounts
-      const { data: existingAccounts } = await supabase.from("accounts").select("id").eq("user_id", userId).limit(1);
-      if (!existingAccounts || existingAccounts.length === 0) {
-        const { data: insts } = await supabase.from("institutions").select("id, name");
-        if (insts) {
-          const find = (name: string) => insts.find((i: any) => i.name === name)?.id;
-          const marcusId = find("Marcus by Goldman Sachs");
-          const chaseId = find("Chase");
-          const vanguardId = find("Vanguard");
-          const accountInserts = [
-            marcusId && { user_id: userId, institution_id: marcusId, nickname: "Emergency Savings", account_type: "savings", balance: 8400 },
-            chaseId && { user_id: userId, institution_id: chaseId, nickname: "Checking", account_type: "checking", balance: 3200 },
-            chaseId && { user_id: userId, institution_id: chaseId, nickname: "Freedom Card", account_type: "credit_card", balance: -1450 },
-            vanguardId && { user_id: userId, institution_id: vanguardId, nickname: "Roth IRA", account_type: "retirement", balance: 24200 },
-          ].filter(Boolean);
-          if (accountInserts.length > 0) {
-            await supabase.from("accounts").insert(accountInserts);
-          }
-        }
-      }
-    }
-  };
-
-  const handleDemoLogin = async () => {
-    setLoading(true);
-    const demoEmail = "demo@finbloom.app";
-    const demoPassword = "demo1234";
+  const handleDemoLogin = async (profile: typeof DEMO_PROFILES[0]) => {
+    setDemoLoading(profile.email);
     try {
-      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-        email: demoEmail,
-        password: demoPassword,
-      });
-      if (!signInError && signInData.user) {
-        await seedDemoData(signInData.user.id);
-        navigate("/dashboard");
-        return;
-      }
-
-      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-        email: demoEmail,
-        password: demoPassword,
-      });
-      if (signUpError) throw signUpError;
-
-      if (signUpData.user) {
-        await seedDemoData(signUpData.user.id);
-        navigate("/dashboard");
-      }
+      await loginDemoProfile(profile, navigate);
     } catch (error: any) {
       toast.error(error.message);
     } finally {
-      setLoading(false);
+      setDemoLoading(null);
     }
   };
 
