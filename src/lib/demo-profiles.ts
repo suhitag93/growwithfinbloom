@@ -177,26 +177,26 @@ async function seedFlourishProfile(userId: string) {
 
   const { data: existingXP } = await supabase.from("xp_ledger").select("id").eq("user_id", userId).limit(1);
   if (!existingXP || existingXP.length === 0) {
-    await supabase.from("xp_ledger").insert([
-      { user_id: userId, xp_amount: 100, reason: "Completed onboarding", source_type: "onboarding" },
-      { user_id: userId, xp_amount: 200, reason: "Connected bank accounts", source_type: "banking" },
-      { user_id: userId, xp_amount: 500, reason: "6-month emergency fund", source_type: "achievement" },
-      { user_id: userId, xp_amount: 400, reason: "Portfolio hit $50k", source_type: "achievement" },
-      { user_id: userId, xp_amount: 300, reason: "Debt-free milestone", source_type: "achievement" },
-      { user_id: userId, xp_amount: 250, reason: "Consistent investor", source_type: "investing" },
-      { user_id: userId, xp_amount: 200, reason: "30-day login streak", source_type: "engagement" },
-      { user_id: userId, xp_amount: 500, reason: "All missions completed", source_type: "mission" },
-      { user_id: userId, xp_amount: 350, reason: "Savings rate above 30%", source_type: "saving" },
-      { user_id: userId, xp_amount: 400, reason: "Diversified portfolio", source_type: "achievement" },
-      { user_id: userId, xp_amount: 300, reason: "Emergency fund fully funded", source_type: "saving" },
-      { user_id: userId, xp_amount: 500, reason: "Financial independence path", source_type: "achievement" },
-      { user_id: userId, xp_amount: 250, reason: "Helped 3 friends join", source_type: "engagement" },
-      { user_id: userId, xp_amount: 200, reason: "Monthly review streak", source_type: "engagement" },
-      { user_id: userId, xp_amount: 350, reason: "Net worth milestone $100k", source_type: "achievement" },
-      { user_id: userId, xp_amount: 400, reason: "Tax-optimized investing", source_type: "investing" },
-      { user_id: userId, xp_amount: 300, reason: "Max retirement contribution", source_type: "investing" },
-      { user_id: userId, xp_amount: 200, reason: "90-day streak", source_type: "engagement" },
-      { user_id: userId, xp_amount: 500, reason: "Legacy builder badge", source_type: "achievement" },
+    await awardXP(userId, [
+      { xp: 100, source: "onboarding", reason: "Completed onboarding" },
+      { xp: 200, source: "banking", reason: "Connected bank accounts" },
+      { xp: 500, source: "achievement", reason: "6-month emergency fund" },
+      { xp: 400, source: "achievement", reason: "Portfolio hit $50k" },
+      { xp: 300, source: "achievement", reason: "Debt-free milestone" },
+      { xp: 250, source: "investing", reason: "Consistent investor" },
+      { xp: 200, source: "engagement", reason: "30-day login streak" },
+      { xp: 500, source: "mission", reason: "All missions completed" },
+      { xp: 350, source: "saving", reason: "Savings rate above 30%" },
+      { xp: 400, source: "achievement", reason: "Diversified portfolio" },
+      { xp: 300, source: "saving", reason: "Emergency fund fully funded" },
+      { xp: 500, source: "achievement", reason: "Financial independence path" },
+      { xp: 250, source: "engagement", reason: "Helped 3 friends join" },
+      { xp: 200, source: "engagement", reason: "Monthly review streak" },
+      { xp: 350, source: "achievement", reason: "Net worth milestone $100k" },
+      { xp: 400, source: "investing", reason: "Tax-optimized investing" },
+      { xp: 300, source: "investing", reason: "Max retirement contribution" },
+      { xp: 200, source: "engagement", reason: "90-day streak" },
+      { xp: 500, source: "achievement", reason: "Legacy builder badge" },
     ]);
 
     // All achievements
