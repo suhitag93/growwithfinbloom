@@ -27,10 +27,18 @@ const ACCOUNT_TYPE_ICONS: Record<string, React.ReactNode> = {
 const ConnectedAccountsTab = () => {
   const { accounts, institutions, loading, refetch, addManualAccount, deleteAccount, refreshAccount } = useAccounts();
   const { startPlaidLink, openWhenReady, loading: plaidLoading, syncing, ready: plaidReady, linkToken } = usePlaid(() => refetch());
-  const { user } = useAuth();
+  const { user, isDemoUser } = useAuth();
   const [showManual, setShowManual] = useState(false);
   const [disconnectTarget, setDisconnectTarget] = useState<{ instName: string; instId: string; accountIds: string[] } | null>(null);
   const [manualForm, setManualForm] = useState({ nickname: "", account_type: "checking", balance: "" });
+
+  const guardDemo = (action: string) => {
+    if (isDemoUser) {
+      toast.error(`This is demo data — connect your real accounts to ${action} 💚`);
+      return true;
+    }
+    return false;
+  };
 
   // Auto-open Plaid Link when token becomes ready
   useEffect(() => {
@@ -46,6 +54,7 @@ const ConnectedAccountsTab = () => {
   }, {});
 
   const handleAddManual = async () => {
+    if (guardDemo("add accounts")) return;
     if (!manualForm.nickname || !manualForm.balance) return;
     const manualInst = institutions[0];
     if (!manualInst) return;
@@ -66,18 +75,16 @@ const ConnectedAccountsTab = () => {
   };
 
   const handleDisconnectInstitution = async () => {
+    if (guardDemo("disconnect institutions")) return;
     if (!disconnectTarget || !user) return;
     const { instName, instId, accountIds } = disconnectTarget;
 
-    // Delete all accounts for this institution
     for (const id of accountIds) {
       await supabase.from("accounts").delete().eq("id", id);
     }
 
-    // Delete plaid_connections for this institution's accounts
     await supabase.from("plaid_connections").delete().eq("user_id", user.id);
 
-    // Check if any accounts remain
     const { data: remaining } = await supabase.from("accounts").select("id").eq("user_id", user.id).limit(1);
     if (!remaining || remaining.length === 0) {
       await supabase.from("profiles").update({ connected_bank: false }).eq("user_id", user.id);

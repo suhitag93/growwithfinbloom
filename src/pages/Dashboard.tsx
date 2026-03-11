@@ -18,6 +18,8 @@ import GardenLoadingScreen from "@/components/dashboard/GardenLoadingScreen";
 import { MobileDashboardAccordion } from "@/components/dashboard/MobileDashboardAccordion";
 import type { AccordionSection } from "@/components/dashboard/MobileDashboardAccordion";
 import { useProfile } from "@/hooks/useProfile";
+import DemoBanner from "@/components/DemoBanner";
+import DemoTimedPrompt from "@/components/DemoConversionPrompts";
 
 const SpendingOverview = lazy(() => import("@/components/dashboard/SpendingOverview"));
 
@@ -111,6 +113,8 @@ const Dashboard = () => {
   ];
 
   return (
+    <>
+    <DemoBanner />
     <div className="min-h-screen pb-12 px-4 pt-4 md:pt-6">
       <div className="container mx-auto max-w-6xl">
         {/* Welcome header */}
@@ -161,6 +165,8 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    <DemoTimedPrompt />
+    </>
   );
 };
 

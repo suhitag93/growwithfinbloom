@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useAccounts } from "@/hooks/useAccounts";
 import { useFinancialData } from "@/hooks/useFinancialData";
+import { DemoNetWorthPrompt } from "@/components/DemoConversionPrompts";
 
 const NetWorthCard = () => {
   const { accounts } = useAccounts();
@@ -84,6 +85,8 @@ const NetWorthCard = () => {
           </div>
         ))}
       </div>
+
+      <DemoNetWorthPrompt />
     </motion.div>
   );
 };
