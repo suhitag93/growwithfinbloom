@@ -61,9 +61,10 @@ export const useGoals = () => {
     const { error } = await supabase.from("goals").insert({ ...goal, user_id: user.id });
     if (error) { toast.error("Failed to create goal"); return; }
     toast.success("Goal created! 🌱 +100 XP");
-    // Award XP for goal creation
-    await supabase.from("xp_ledger").insert({
-      user_id: user.id, xp_amount: 100, source_type: "goal_created", reason: `Created goal: ${goal.title}`,
+    // Award XP via secure server-side function
+    await supabase.rpc("award_xp", {
+      p_user_id: user.id, p_xp_amount: 100, p_source_type: "goal_created",
+      p_reason: `Created goal: ${goal.title}`,
     });
     await fetchGoals();
   };
@@ -85,9 +86,9 @@ export const useGoals = () => {
         await supabase.from("goal_milestones").insert({
           goal_id: goalId, user_id: user.id, milestone_pct: threshold, xp_awarded: xp,
         });
-        await supabase.from("xp_ledger").insert({
-          user_id: user.id, xp_amount: xp, source_type: "goal_milestone",
-          source_id: goalId, reason: `Reached ${threshold}% on ${goal.title}`,
+        await supabase.rpc("award_xp", {
+          p_user_id: user.id, p_xp_amount: xp, p_source_type: "goal_milestone",
+          p_source_id: goalId, p_reason: `Reached ${threshold}% on ${goal.title}`,
         });
         const emoji = threshold === 100 ? "🎉" : threshold === 75 ? "🌸" : threshold === 50 ? "🌿" : "🌱";
         toast.success(`${emoji} ${threshold}% milestone! +${xp} XP`);
