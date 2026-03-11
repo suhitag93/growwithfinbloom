@@ -16,22 +16,22 @@ const HeroSection = () => {
   const handleDemoLogin = async () => {
     setDemoLoading(true);
     try {
-      // First try to seed the demo account
+      // Seed demo account first
       await supabase.functions.invoke("seed-demo-account");
 
-      // Fetch password from edge function that returns it (we sign in with known creds)
-      const { error } = await supabase.auth.signInWithPassword({
-        email: DEMO_EMAIL,
-        password: import.meta.env.VITE_DEMO_USER_PASSWORD || "demo-fallback",
-      });
+      // Login via edge function (password stays server-side)
+      const { data, error } = await supabase.functions.invoke("demo-login");
+      if (error) throw error;
 
-      if (error) {
-        // If direct login fails, try via edge function approach
-        console.error("Demo login failed:", error);
-        throw error;
+      if (data?.access_token && data?.refresh_token) {
+        await supabase.auth.setSession({
+          access_token: data.access_token,
+          refresh_token: data.refresh_token,
+        });
+        navigate("/dashboard");
+      } else {
+        throw new Error("Failed to get demo session");
       }
-
-      navigate("/dashboard");
     } catch (err) {
       console.error("Demo login error:", err);
       setDemoLoading(false);
