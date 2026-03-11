@@ -54,6 +54,7 @@ const ConnectedAccountsTab = () => {
   }, {});
 
   const handleAddManual = async () => {
+    if (guardDemo("add accounts")) return;
     if (!manualForm.nickname || !manualForm.balance) return;
     const manualInst = institutions[0];
     if (!manualInst) return;
