@@ -41,6 +41,7 @@ const Settings = () => {
         </motion.div>
       </div>
     </div>
+    </>
   );
 };
 
