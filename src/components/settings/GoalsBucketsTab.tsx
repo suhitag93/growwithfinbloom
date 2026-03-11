@@ -1,7 +1,3 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import GoalCoach from "@/components/settings/GoalCoach";
 import GoalsDashboard from "@/components/settings/GoalsDashboard";
 import { useGoals } from "@/hooks/useGoals";
 
@@ -21,11 +17,10 @@ const GoalsBucketsTab = () => {
 
       <GoalsDashboard />
 
-      {!showCoach && goals.length === 0 && (
+      {goals.length === 0 && (
         <div className="text-center py-12">
           <span className="text-4xl block mb-3">🌱</span>
-          <p className="text-muted-foreground text-sm mb-4">No goals yet. Let's create your first one!</p>
-          <Button onClick={() => setShowCoach(true)}>Start with AI Coach</Button>
+          <p className="text-muted-foreground text-sm">No goals yet — they'll be created during onboarding.</p>
         </div>
       )}
     </div>
