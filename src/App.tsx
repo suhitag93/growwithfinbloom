@@ -51,6 +51,7 @@ const AppLayout = () => {
       {!hideNav && <Navbar />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/survey" element={<Survey />} />
         <Route path="/auth" element={<Auth />} />
         <Route
           path="/onboarding"
