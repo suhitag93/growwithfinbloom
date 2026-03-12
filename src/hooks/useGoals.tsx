@@ -61,11 +61,15 @@ export const useGoals = () => {
     const { error } = await supabase.from("goals").insert({ ...goal, user_id: user.id });
     if (error) { toast.error("Failed to create goal"); return; }
     toast.success("Goal created! 🌱 +100 XP");
-    // Award XP via secure server-side function
-    await supabase.rpc("award_xp", {
-      p_user_id: user.id, p_xp_amount: 100, p_source_type: "goal_created",
-      p_reason: `Created goal: ${goal.title}`,
-    });
+    // Award XP via secure server-side function — fetch the newly created goal to get its ID
+    const { data: newGoals } = await supabase.from("goals").select("id").eq("user_id", user.id).eq("title", goal.title).order("created_at", { ascending: false }).limit(1);
+    const newGoalId = newGoals?.[0]?.id;
+    if (newGoalId) {
+      await supabase.rpc("award_xp", {
+        p_user_id: user.id, p_xp_amount: 100, p_source_type: "goal_created",
+        p_source_id: newGoalId, p_reason: `Created goal: ${goal.title}`,
+      });
+    }
     await fetchGoals();
   };
 
