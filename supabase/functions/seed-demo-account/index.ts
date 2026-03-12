@@ -171,6 +171,7 @@ Deno.serve(async (req) => {
         p_xp_amount: e.xp,
         p_source_type: e.source,
         p_reason: e.reason,
+        p_source_id: crypto.randomUUID(),
       });
     }
 

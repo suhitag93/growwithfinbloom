@@ -37,10 +37,11 @@ export const DEMO_PROFILES: DemoProfile[] = [
 ];
 
 // Helper to award XP via secure server-side function
-async function awardXP(userId: string, entries: { xp: number; source: string; reason: string }[]) {
+async function awardXP(userId: string, entries: { xp: number; source: string; reason: string; sourceId?: string }[]) {
   for (const e of entries) {
     await supabase.rpc("award_xp", {
       p_user_id: userId, p_xp_amount: e.xp, p_source_type: e.source, p_reason: e.reason,
+      p_source_id: e.sourceId || crypto.randomUUID(),
     });
   }
 }
