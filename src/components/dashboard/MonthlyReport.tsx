@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, ArrowDownRight, PiggyBank } from "lucide-react";
+import FinancialDisclaimer from "@/components/FinancialDisclaimer";
 
 const MonthlyReport = () => {
   const income = 6200;
@@ -46,6 +47,7 @@ const MonthlyReport = () => {
         <p className="font-display text-3xl font-bold text-primary">{savingsRate}%</p>
         <p className="text-xs text-muted-foreground mt-1">Above the 20% recommended target 🎉</p>
       </div>
+      <FinancialDisclaimer />
     </motion.div>
   );
 };

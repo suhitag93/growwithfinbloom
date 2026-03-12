@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Star, ChevronRight } from "lucide-react";
+import FinancialDisclaimer from "@/components/FinancialDisclaimer";
 
 const MilestoneCard = () => {
   return (
@@ -35,6 +36,7 @@ const MilestoneCard = () => {
         <span>$3,200 saved</span>
         <span>64%</span>
       </div>
+      <FinancialDisclaimer />
     </motion.div>
   );
 };

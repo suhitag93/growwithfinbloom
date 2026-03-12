@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import FinancialDisclaimer from "@/components/FinancialDisclaimer";
 
 const recommendations = [
   {
@@ -55,6 +56,7 @@ const RecommendationCard = () => {
           </motion.div>
         ))}
       </div>
+      <FinancialDisclaimer />
     </motion.div>
   );
 };

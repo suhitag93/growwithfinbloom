@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { AlertTriangle, CreditCard, ShoppingBag, RefreshCw } from "lucide-react";
+import FinancialDisclaimer from "@/components/FinancialDisclaimer";
 
 const alerts = [
   {
@@ -52,6 +53,7 @@ const SmartAlerts = () => {
           </motion.div>
         ))}
       </div>
+      <FinancialDisclaimer />
     </motion.div>
   );
 };

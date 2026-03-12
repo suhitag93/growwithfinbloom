@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { TrendingUp, Wallet, CreditCard, BarChart3 } from "lucide-react";
+import FinancialDisclaimer from "@/components/FinancialDisclaimer";
 
 const categories = [
   { label: "Savings", status: "⚠ Needs work", score: 40, color: "bg-success" },
@@ -85,6 +86,7 @@ const FinancialHealthSnapshot = () => {
           </div>
         ))}
       </div>
+      <FinancialDisclaimer />
     </motion.div>
   );
 };
