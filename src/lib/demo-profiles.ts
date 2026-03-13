@@ -121,14 +121,10 @@ async function seedBloomProfile(userId: string) {
       { xp: 175, source: "achievement", reason: "Consistent saver badge" },
     ]);
 
-    // Some achievements
-    const { data: achievements } = await supabase.from("achievements").select("id, name")
-      .in("name", ["First Drop", "Chain Breaker", "Week Warrior"]);
-    if (achievements && achievements.length > 0) {
-      await supabase.from("user_achievements").insert(
-        achievements.map((a) => ({ user_id: userId, achievement_id: a.id }))
-      );
-    }
+    // Achievement grants are intentionally omitted here: the user_achievements
+    // table no longer allows client-side INSERTs.  Demo achievements for this
+    // account must be seeded via a server-side Edge Function that uses the
+    // service role key (see supabase/functions/seed-demo-account/).
 
     // Missions
     const { data: missionsList } = await supabase.from("missions").select("id").limit(4);
@@ -200,13 +196,10 @@ async function seedFlourishProfile(userId: string) {
       { xp: 500, source: "achievement", reason: "Legacy builder badge" },
     ]);
 
-    // All achievements
-    const { data: achievements } = await supabase.from("achievements").select("id");
-    if (achievements && achievements.length > 0) {
-      await supabase.from("user_achievements").insert(
-        achievements.map((a) => ({ user_id: userId, achievement_id: a.id }))
-      );
-    }
+    // Achievement grants are intentionally omitted here: the user_achievements
+    // table no longer allows client-side INSERTs.  Demo achievements for this
+    // account must be seeded via a server-side Edge Function that uses the
+    // service role key (see supabase/functions/seed-demo-account/).
 
     // All missions completed
     const { data: missionsList } = await supabase.from("missions").select("id");
