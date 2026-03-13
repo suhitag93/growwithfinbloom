@@ -18,6 +18,7 @@ import GardenLoadingScreen from "@/components/dashboard/GardenLoadingScreen";
 import { MobileDashboardAccordion } from "@/components/dashboard/MobileDashboardAccordion";
 import type { AccordionSection } from "@/components/dashboard/MobileDashboardAccordion";
 import { useProfile } from "@/hooks/useProfile";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import DemoBanner from "@/components/DemoBanner";
 import DemoTimedPrompt from "@/components/DemoConversionPrompts";
 
