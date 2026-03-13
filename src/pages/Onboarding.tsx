@@ -32,6 +32,7 @@ const TOTAL_STEPS = 8;
 const Onboarding = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { track } = useAnalytics();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<OnboardingData>({
     fullName: "",
