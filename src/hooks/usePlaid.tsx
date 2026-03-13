@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
 export const usePlaid = (onSuccess?: () => void) => {
+  const { track } = useAnalytics();
   const [linkToken, setLinkToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [syncing, setSyncing] = useState(false);
