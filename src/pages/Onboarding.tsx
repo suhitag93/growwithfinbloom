@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import WelcomeStep from "@/components/onboarding/WelcomeStep";
 import PersonalInfoStep from "@/components/onboarding/PersonalInfoStep";
 import DemographicsStep from "@/components/onboarding/DemographicsStep";
