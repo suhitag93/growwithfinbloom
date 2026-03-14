@@ -25,7 +25,7 @@ const WeeklyCoaching = () => {
         </div>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3 flex-1 min-h-0 overflow-y-auto">
         {insights.map((insight, i) => (
           <motion.div
             key={i}

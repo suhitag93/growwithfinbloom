@@ -82,7 +82,7 @@ const GamifiedMissions = () => {
           );
         })}
       </div>
-      </ScrollArea>
+      </div>
     </motion.div>
   );
 };
