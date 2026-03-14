@@ -27,7 +27,7 @@ const GamifiedMissions = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className="p-6 rounded-2xl bg-card shadow-card border border-border/50"
+      className="p-6 rounded-2xl bg-card shadow-card border border-border/50 h-full flex flex-col"
     >
       <div className="flex items-center justify-between mb-1">
         <h3 className="font-display text-lg font-semibold text-foreground">Active Missions</h3>
