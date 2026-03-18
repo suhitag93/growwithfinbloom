@@ -24,6 +24,7 @@ export interface OnboardingData {
   financialConfidence: string;
   financialAccounts: string[];
   connectedBank: boolean;
+  useSampleData: boolean;
   goals: string[];
 }
 
@@ -45,6 +46,7 @@ const Onboarding = () => {
     financialConfidence: "",
     financialAccounts: [],
     connectedBank: false,
+    useSampleData: false,
     goals: [],
   });
 
@@ -87,6 +89,7 @@ const Onboarding = () => {
     track("onboarding_completed", {
       financial_confidence: data.financialConfidence,
       goals: data.goals,
+      use_sample_data: data.useSampleData,
     });
     navigate("/dashboard");
   };
