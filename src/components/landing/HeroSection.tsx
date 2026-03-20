@@ -1,45 +1,10 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
-import { Leaf } from "lucide-react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import heroBotanical from "@/assets/hero-botanical.png";
-import FinBloomIcon from "@/components/FinBloomIcon";
-import DemoLoginOverlay from "@/components/DemoLoginOverlay";
-import { supabase } from "@/integrations/supabase/client";
-import { DEMO_EMAIL } from "@/lib/demo-constants";
 
 const HeroSection = () => {
-  const navigate = useNavigate();
-  const [demoLoading, setDemoLoading] = useState(false);
-
-  const handleDemoLogin = async () => {
-    setDemoLoading(true);
-    try {
-      // Seed demo account first
-      await supabase.functions.invoke("seed-demo-account");
-
-      // Login via edge function (password stays server-side)
-      const { data, error } = await supabase.functions.invoke("demo-login");
-      if (error) throw error;
-
-      if (data?.access_token && data?.refresh_token) {
-        await supabase.auth.setSession({
-          access_token: data.access_token,
-          refresh_token: data.refresh_token,
-        });
-        navigate("/dashboard");
-      } else {
-        throw new Error("Failed to get demo session");
-      }
-    } catch (err) {
-      console.error("Demo login error:", err);
-      setDemoLoading(false);
-    }
-  };
-
   return (
     <>
-      <AnimatePresence>{demoLoading && <DemoLoginOverlay />}</AnimatePresence>
       <section className="relative pt-32 pb-20 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-warm" />
         {/* Floating garden particles */}
