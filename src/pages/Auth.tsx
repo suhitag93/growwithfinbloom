@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +23,14 @@ const Auth = () => {
   const [demoLoading, setDemoLoading] = useState<string | null>(null);
 
   const { identify } = useAnalytics();
+
+  // Auto-trigger demo login when ?demo=true
+  useEffect(() => {
+    if (searchParams.get("demo") === "true") {
+      const seedProfile = DEMO_PROFILES.find(p => p.level === 2) || DEMO_PROFILES[0];
+      handleDemoLogin(seedProfile);
+    }
+  }, []);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
