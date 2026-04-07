@@ -243,6 +243,9 @@ ${knowledgeContext}`;
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
 
+    // Increment sage_calls_today now that streaming has begun
+    await supabase.rpc("increment_sage_calls", { p_user_id: user.id });
+
     // Process in background: forward stream + collect full response
     (async () => {
       let fullResponse = "";
