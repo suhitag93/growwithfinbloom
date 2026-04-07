@@ -833,6 +833,7 @@ export type Database = {
         }
         Returns: Json
       }
+      increment_sage_calls: { Args: { p_user_id: string }; Returns: undefined }
       match_knowledge:
         | {
             Args: {
