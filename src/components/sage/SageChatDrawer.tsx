@@ -36,6 +36,7 @@ const SageChatDrawer = ({ open, onClose }: SageChatDrawerProps) => {
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [showChips, setShowChips] = useState(true);
+  const [dailyLimitReached, setDailyLimitReached] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -95,6 +96,19 @@ const SageChatDrawer = ({ open, onClose }: SageChatDrawerProps) => {
       );
 
       if (!res.ok) {
+        if (res.status === 429) {
+          const body = await res.json();
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === sageId
+                ? { ...m, content: "We've had a good run today. Come back tomorrow and we'll keep going. 🌱" }
+                : m
+            )
+          );
+          setDailyLimitReached(true);
+          setIsStreaming(false);
+          return;
+        }
         throw new Error("Chat request failed");
       }
 
@@ -273,9 +287,10 @@ const SageChatDrawer = ({ open, onClose }: SageChatDrawerProps) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Talk to Sage..."
+            placeholder={dailyLimitReached ? "Sage is resting for today" : "Talk to Sage..."}
             rows={1}
-            className="flex-1 resize-none rounded-full bg-gray-50 px-4 py-2 text-sm outline-none transition-colors"
+            disabled={dailyLimitReached}
+            className="flex-1 resize-none rounded-full bg-gray-50 px-4 py-2 text-sm outline-none transition-colors disabled:opacity-50"
             style={{
               borderWidth: 1.5,
               borderStyle: "solid",
@@ -284,7 +299,7 @@ const SageChatDrawer = ({ open, onClose }: SageChatDrawerProps) => {
           />
           <button
             onClick={() => sendMessage(input)}
-            disabled={!input.trim() || isStreaming}
+            disabled={!input.trim() || isStreaming || dailyLimitReached}
             className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all active:scale-95 disabled:opacity-40"
             style={{ background: "#9B89B0" }}
           >
