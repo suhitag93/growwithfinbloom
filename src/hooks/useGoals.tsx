@@ -106,6 +106,13 @@ export const useGoals = () => {
     await fetchGoals();
   };
 
+  const updateGoal = async (goalId: string, updates: Partial<Pick<Goal, "title" | "goal_type" | "target_amount" | "current_amount" | "monthly_contribution" | "target_date" | "linked_account_id" | "description">>) => {
+    const { error } = await supabase.from("goals").update(updates).eq("id", goalId);
+    if (error) { toast.error("Failed to update goal"); return; }
+    toast.success("Goal updated");
+    await fetchGoals();
+  };
+
   const deleteGoal = async (goalId: string) => {
     await supabase.from("goals").delete().eq("id", goalId);
     toast.success("Goal removed");
@@ -124,5 +131,5 @@ export const useGoals = () => {
     }
   };
 
-  return { goals, milestones, loading, createGoal, updateGoalProgress, deleteGoal, syncGoalProgress, refetch: fetchGoals };
+  return { goals, milestones, loading, createGoal, updateGoal, updateGoalProgress, deleteGoal, syncGoalProgress, refetch: fetchGoals };
 };

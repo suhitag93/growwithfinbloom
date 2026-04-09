@@ -1,10 +1,16 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, Trash2, Check } from "lucide-react";
-import { useGoals } from "@/hooks/useGoals";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { RefreshCw, Trash2, Check, Pencil } from "lucide-react";
+import { useGoals, Goal } from "@/hooks/useGoals";
+import GoalFormModal from "@/components/settings/GoalFormModal";
 
 const GoalsDashboard = () => {
-  const { goals, milestones, loading, syncGoalProgress, deleteGoal } = useGoals();
+  const { goals, milestones, loading, syncGoalProgress, deleteGoal, updateGoal } = useGoals();
+
+  const [editTarget, setEditTarget] = useState<Goal | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<Goal | null>(null);
 
   const activeGoals = goals.filter((g) => g.status === "active");
   const completedGoals = goals.filter((g) => g.status === "completed");
@@ -38,12 +44,23 @@ const GoalsDashboard = () => {
                   <p className="text-xs text-muted-foreground capitalize">{goal.goal_type.replace(/_/g, " ")}</p>
                 </div>
                 <div className="flex gap-1">
+                  <Button
+                    variant="ghost" size="icon" className="h-7 w-7"
+                    onClick={() => setEditTarget(goal)}
+                    title="Edit goal"
+                  >
+                    <Pencil className="w-3.5 h-3.5" />
+                  </Button>
                   {goal.linked_account_id && (
                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => syncGoalProgress(goal.id)}>
                       <RefreshCw className="w-3.5 h-3.5" />
                     </Button>
                   )}
-                  <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive/60 hover:text-destructive" onClick={() => deleteGoal(goal.id)}>
+                  <Button
+                    variant="ghost" size="icon" className="h-7 w-7 text-destructive/60 hover:text-destructive"
+                    onClick={() => setDeleteTarget(goal)}
+                    title="Delete goal"
+                  >
                     <Trash2 className="w-3.5 h-3.5" />
                   </Button>
                 </div>
@@ -104,11 +121,60 @@ const GoalsDashboard = () => {
                 <span className="text-lg">🎉</span>
                 <span className="text-sm font-medium text-foreground">{goal.title}</span>
               </div>
-              <span className="text-xs text-primary font-medium">${goal.target_amount.toLocaleString()}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-primary font-medium">${goal.target_amount.toLocaleString()}</span>
+                <Button
+                  variant="ghost" size="icon" className="h-6 w-6 text-destructive/50 hover:text-destructive"
+                  onClick={() => setDeleteTarget(goal)}
+                >
+                  <Trash2 className="w-3 h-3" />
+                </Button>
+              </div>
             </div>
           ))}
         </div>
       )}
+
+      {/* Edit modal */}
+      <GoalFormModal
+        open={!!editTarget}
+        onClose={() => setEditTarget(null)}
+        mode="edit"
+        initialData={editTarget}
+        onSubmit={async (form) => {
+          if (!editTarget) return;
+          await updateGoal(editTarget.id, {
+            title: form.title,
+            goal_type: form.goal_type,
+            target_amount: Number(form.target_amount),
+            current_amount: Number(form.current_amount),
+            monthly_contribution: form.monthly_contribution ? Number(form.monthly_contribution) : null,
+            target_date: form.target_date || null,
+            linked_account_id: form.linked_account_id || null,
+          });
+        }}
+      />
+
+      {/* Delete confirmation */}
+      <AlertDialog open={!!deleteTarget} onOpenChange={(v) => { if (!v) setDeleteTarget(null); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Remove this goal?</AlertDialogTitle>
+            <AlertDialogDescription>
+              "{deleteTarget?.title}" will be permanently removed. Your progress won't count toward XP milestones anymore.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Keep it</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={() => { if (deleteTarget) deleteGoal(deleteTarget.id); setDeleteTarget(null); }}
+            >
+              Remove
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
