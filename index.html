@@ -3,31 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- PWA: Web app capable (fullscreen on iOS) -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <title>FinBloom</title>
-    <meta name="description" content="Grow your financial wellness, one seed as a time.">
-    <meta name="author" content="Lovable" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="finBloom" />
 
-    <!-- TODO: Update og:title to match your application name -->
-    
-    
+    <!-- Theme color (Android Chrome + Safari tab bar tint) -->
+    <meta name="theme-color" content="#9DB8A0" />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+
+    <!-- iOS splash screens — iPhone -->
+    <link rel="apple-touch-startup-image"
+      href="/icons/splash-1290x2796.png"
+      media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image"
+      href="/icons/splash-1179x2556.png"
+      media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image"
+      href="/icons/splash-1170x2532.png"
+      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image"
+      href="/icons/splash-750x1334.png"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <!-- iOS splash screens — iPad -->
+    <link rel="apple-touch-startup-image"
+      href="/icons/splash-2048x2732.png"
+      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+    <link rel="apple-touch-startup-image"
+      href="/icons/splash-1668x2388.png"
+      media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+
+    <title>finBloom — Grow your wealth</title>
+    <meta name="description" content="Grow your financial wellness, one habit at a time. Earn XP for real money moves, level up through growth stages." />
+    <meta name="author" content="finBloom" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec11cb2-8b6a-42cb-b535-b44bb758e0f9/id-preview-5139afc9--c360169b-242c-4621-b7d6-78da40a14fcd.lovable.app-1772987984211.png">
+    <meta property="og:title" content="finBloom" />
+    <meta property="og:description" content="Grow your wealth, one habit at a time." />
+    <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec11cb2-8b6a-42cb-b535-b44bb758e0f9/id-preview-5139afc9--c360169b-242c-4621-b7d6-78da40a14fcd.lovable.app-1772987984211.png" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec11cb2-8b6a-42cb-b535-b44bb758e0f9/id-preview-5139afc9--c360169b-242c-4621-b7d6-78da40a14fcd.lovable.app-1772987984211.png">
-    
-  
-  
-  
-  <meta property="og:title" content="FinBloom">
-  <meta name="twitter:title" content="FinBloom">
-  <meta property="og:description" content="Grow your financial wellness, one seed as a time.">
-  <meta name="twitter:description" content="Grow your financial wellness, one seed as a time.">
-</head>
+    <meta name="twitter:title" content="finBloom" />
+    <meta name="twitter:description" content="Grow your wealth, one habit at a time." />
+    <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/dec11cb2-8b6a-42cb-b535-b44bb758e0f9/id-preview-5139afc9--c360169b-242c-4621-b7d6-78da40a14fcd.lovable.app-1772987984211.png" />
+  </head>
 
   <body>
     <div id="root"></div>

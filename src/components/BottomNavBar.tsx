@@ -16,11 +16,11 @@ const BottomNavBar = () => {
     <nav
       className="shrink-0 border-t bg-[hsl(var(--bottom-nav))] border-[hsl(var(--bottom-nav-border))]"
       style={{
-        height: 72,
+        // Let safe-area-inset-bottom expand the nav height rather than shrinking content
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div className="flex items-center justify-around h-full px-2">
+      <div className="flex items-center justify-around px-2" style={{ height: 56 }}>
         {tabs.map((tab) => {
           const isActive = location.pathname === tab.path;
           const Icon = tab.icon;

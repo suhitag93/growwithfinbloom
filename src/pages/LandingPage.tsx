@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import HeroSection from "@/components/landing/HeroSection";
 import XPShowcaseSection from "@/components/landing/XPShowcaseSection";
 import GrowthJourneySection from "@/components/landing/GrowthJourneySection";
@@ -7,6 +10,13 @@ import FooterSection from "@/components/landing/FooterSection";
 import WaitlistBanner from "@/components/WaitlistBanner";
 
 const LandingPage = () => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && user) navigate("/dashboard", { replace: true });
+  }, [user, loading, navigate]);
+
   return (
     <div className="min-h-screen">
       <HeroSection />

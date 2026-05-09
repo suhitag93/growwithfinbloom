@@ -28,7 +28,14 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 /** Mobile app shell with bottom nav + scrollable content */
 const MobileAppShell = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex flex-col overflow-hidden bg-background" style={{ height: "100dvh" }}>
+  <div
+    className="flex flex-col overflow-hidden bg-background"
+    style={{
+      height: "100dvh",
+      // Push content below the iOS status bar when running as a standalone PWA
+      paddingTop: "env(safe-area-inset-top, 0px)",
+    }}
+  >
     <DemoBanner />
     <div className="flex-1 overflow-y-auto" style={{ WebkitOverflowScrolling: "touch" }}>
       {children}
